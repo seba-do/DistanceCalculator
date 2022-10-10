@@ -30,4 +30,4 @@ class DistanceCalculator(input: List<Point>) {
     }
 }
 
-fun List<Point>.calcDistances() : DistanceCalculator = DistanceCalculator(this)
+fun List<Point>.calcDistances(): DistanceCalculator = DistanceCalculator(this)
