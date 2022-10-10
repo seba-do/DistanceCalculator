@@ -51,10 +51,10 @@ class DistanceCalculatorTest {
 
     @Test
     fun testEmptyInput() {
-        val closestResult = testData.calcDistances().getClosestDistanceResult()
+        val closestResult = emptyList<Point>().calcDistances().getClosestDistanceResult()
         assertEquals(null, closestResult.firstOrNull())
 
-        val farthermostResult = testData.calcDistances().getFarthermostDistanceResult()
+        val farthermostResult = emptyList<Point>().calcDistances().getFarthermostDistanceResult()
         assertEquals(null, farthermostResult.firstOrNull())
     }
 }
