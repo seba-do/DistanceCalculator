@@ -5,24 +5,14 @@ import de.sdomma.distancecalculator.models.Point
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class DistanceCalculator {
+class DistanceCalculator(input: List<Point>) {
 
-    private var result: List<DistanceResult> = emptyList()
-
-    fun calcDistances(input: List<Point>): DistanceCalculator {
-        mutableListOf<DistanceResult>()
-            .also { output ->
-                input.forEachIndexed { index, point ->
-                    input.subList(index + 1, input.size)
-                        .map { DistanceResult(point, it, calcDistanceBetweenPoints(point, it)) }
-                        .let { output.addAll(it) }
-                }
-            }
-            .also { result = it }
-
-        return this
+    private val result: List<DistanceResult> by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+        input.mapIndexed { index, point ->
+            input.subList(index + 1, input.size)
+                .map { DistanceResult(point, it, calcDistanceBetweenPoints(point, it)) }
+        }.flatten()
     }
-
 
     private fun calcDistanceBetweenPoints(firstPoint: Point, secondPoint: Point) = sqrt(
         (firstPoint.x - secondPoint.x).toDouble().pow(2)
@@ -40,4 +30,4 @@ class DistanceCalculator {
     }
 }
 
-fun List<Point>.calcDistances() : DistanceCalculator = DistanceCalculator().calcDistances(this)
+fun List<Point>.calcDistances() : DistanceCalculator = DistanceCalculator(this)
